@@ -90,7 +90,16 @@ Variables más importantes para clasificar cada componente:
 ```bash
 git clone https://github.com/pablo-dz/galah-dr4-random-forest.git
 cd galah-dr4-random-forest
-python -m venv .venv && source .venv/bin/activate   # en Windows: .venv\Scripts\activate
+
+# Crear y activar el entorno virtual (Python 3.11+)
+python3.11 -m venv .venv && source .venv/bin/activate
+
+# En Windows:
+# py -3.11 -m venv .venv
+#.venv\Scripts\activate
+
+# Instalar el proyecto
+python -m pip install --upgrade pip
 pip install -e .
 ```
 
