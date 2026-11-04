@@ -2,7 +2,7 @@
 
 Clasificación de componentes galácticas, predicción de abundancias químicas ([Mg/Fe]) y estimación de edades estelares con **Random Forest**, usando más de 900 000 estrellas del *Data Release 4* de GALAH.
 
-![Python](https://img.shields.io/badge/python-3.10%2B-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python&logoColor=white) ![License](https://img.shields.io/badge/license-MIT-green)
 
 <p align="center">
   <img src="figures/report/toomre_diagram.png" width="55%" alt="Diagrama de Toomre con las componentes de la Vía Láctea">
