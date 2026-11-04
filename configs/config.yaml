@@ -1,0 +1,81 @@
+# Configuración del proyecto. Las rutas son relativas a la raíz del repositorio.
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  figures_dir: figures
+  results_dir: results
+
+figures:
+  format: png      # png | pdf
+  dpi: 200
+
+random_seed: 42    # semilla de las divisiones train/test y de los Random Forest
+n_jobs: -1         # núcleos para los Random Forest (-1 = todos)
+
+# --- 1) Catálogo ------------------------------------------------------------
+catalog:
+  files:
+    allstar: galah_dr4_allstar_240705.fits
+    li: galah_dr4_vac_3dnlte_a_li_240705.fits
+    dynamics: galah_dr4_vac_dynamics_240705.fits
+    gaia: galah_dr4_vac_wise_tmass_gaiadr3_240705.fits
+  base_columns: [sobject_id, teff, logg, fe_h, vmic, vsini, mass, age, lbol, U_UVW, V_UVW, W_UVW]
+  snr_min: 30            # snr_px_ccd3 > snr_min
+  flag_sp: 0             # flag_sp == 0
+  max_nan_percent: 15    # se descartan abundancias con más de este % de NaN
+  excluded_elements: [nn_li_fe]
+  output_file: ready_data.csv
+
+outliers:
+  sigma: 5               # sigma clipping a 5σ
+
+toomre:                  # radios del diagrama de Toomre (km/s)
+  r_thin: 50
+  r_thick: 70
+  r_halo: 180
+
+# --- 2) Clasificación de componentes ---------------------------------------
+classification:
+  excluded_features: [sobject_id, U_UVW, V_UVW, W_UVW, distance]
+  outlier_plot_columns: [teff, logg, fe_h, mass, age, lbol, si_fe, mg_fe, ti_fe, o_fe, ca_fe]
+  balance:
+    halo_copies: 10      # copias adicionales de las estrellas del halo (sobremuestreo)
+    # false: replica el informe (balancear todo el conjunto y luego dividir en train/test).
+    # true:  divide primero y sobremuestrea solo el conjunto de entrenamiento (evita duplicados en test).
+    after_split: false
+  targets:
+    halo:       {test_size: 0.3, model: {n_estimators: 300, max_depth: 20}}
+    thin_disk:  {test_size: 0.4, model: {n_estimators: 200, max_depth: 15}}
+    thick_disk: {test_size: 0.5, model: {n_estimators: 200, max_depth: 15}}
+  sweeps:                # barridos de hiperparámetros (solo con --sweeps)
+    halo:
+      - {param: max_depth,         range: [1, 20, 1]}
+      - {param: n_estimators,      range: [100, 1000, 100], base: {max_depth: 4}}
+      - {param: min_samples_leaf,  range: [1, 200, 10],     base: {max_depth: 4}}
+      - {param: min_samples_split, range: [2, 150, 10],     base: {max_depth: 4}}
+    thin_disk:
+      - {param: max_depth,         range: [1, 20, 1]}
+      - {param: n_estimators,      range: [100, 1000, 100], base: {max_depth: 10}}
+      - {param: min_samples_leaf,  range: [1, 200, 10],     base: {max_depth: 10}}
+    thick_disk: []
+
+# --- 3) Predicción de [Mg/Fe] ----------------------------------------------
+mg_fe:
+  target: mg_fe
+  excluded_features: [sobject_id, distance, thin_disk, thick_disk, halo, si_fe, mg_fe, ti_fe, o_fe, ca_fe]
+  test_size: 0.4
+  model: {n_estimators: 200, max_depth: 10}
+  sweeps:
+    - {param: max_depth, range: [1, 20, 1]}
+
+# --- 4) Edad estelar a partir de abundancias --------------------------------
+age:
+  target: age
+  teff_max: 6200
+  fe_h_min: -1.0
+  fe_h_max: 0.5
+  test_size: 0.2
+  model: {n_estimators: 200, max_depth: 12}
+  abundance_age_columns: [mg_fe, c_fe, y_fe, si_fe, na_fe, ba_fe]
+  sweeps:
+    - {param: max_depth, range: [1, 20, 1]}

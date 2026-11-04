@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "galah-ml"
+version = "0.1.0"
+description = "Random Forest para clasificar componentes de la Vía Láctea, predecir [Mg/Fe] y estimar edades estelares con GALAH DR4"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Pablo Díaz Arancibia" }]
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn>=1.4",
+    "astropy",
+    "matplotlib",
+    "seaborn",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+plots = ["SciencePlots"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]

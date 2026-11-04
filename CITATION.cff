@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "Si usas este código, por favor cítalo así."
+title: "GALAH DR4 · Random Forest para la Vía Láctea"
+authors:
+  - family-names: "Díaz Arancibia"
+    given-names: "Pablo"
+version: 0.1.0
+license: MIT
