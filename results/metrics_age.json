@@ -1,0 +1,21 @@
+{
+  "hyperparameters": {
+    "n_estimators": 200,
+    "max_depth": 12
+  },
+  "test_size": 0.2,
+  "n_stars": 146966,
+  "metrics": {
+    "r2": 0.6257954294503709,
+    "rmse": 1.7485762701917238,
+    "mae": 1.3158350105751375
+  },
+  "top_features": {
+    "si_fe": 0.2977,
+    "c_fe": 0.1701,
+    "na_fe": 0.0773,
+    "ba_fe": 0.0757,
+    "v_fe": 0.0575,
+    "n_fe": 0.0485
+  }
+}

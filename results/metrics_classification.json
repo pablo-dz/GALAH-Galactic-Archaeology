@@ -1,0 +1,67 @@
+{
+  "class_counts": {
+    "thin_disk": 41956,
+    "thick_disk": 63667,
+    "halo": 3000
+  },
+  "balance_after_split": false,
+  "models": {
+    "halo": {
+      "hyperparameters": {
+        "n_estimators": 300,
+        "max_depth": 20
+      },
+      "test_size": 0.3,
+      "metrics": {
+        "accuracy": 0.9670570130088729,
+        "precision": 0.8781771158476768,
+        "recall": 0.9995939498528068
+      },
+      "top_features": {
+        "ti_fe": 0.1154,
+        "si_fe": 0.0962,
+        "mn_fe": 0.0775,
+        "fe_h": 0.0747,
+        "ca_fe": 0.0614
+      }
+    },
+    "thin_disk": {
+      "hyperparameters": {
+        "n_estimators": 200,
+        "max_depth": 15
+      },
+      "test_size": 0.4,
+      "metrics": {
+        "accuracy": 0.7426690712353472,
+        "precision": 0.5519747899159664,
+        "recall": 0.7846264110374485
+      },
+      "top_features": {
+        "ti_fe": 0.128,
+        "mg_fe": 0.0748,
+        "mn_fe": 0.0671,
+        "si_fe": 0.0663,
+        "ca_fe": 0.0519
+      }
+    },
+    "thick_disk": {
+      "hyperparameters": {
+        "n_estimators": 200,
+        "max_depth": 15
+      },
+      "test_size": 0.5,
+      "metrics": {
+        "accuracy": 0.7404345567867036,
+        "precision": 0.6842846888044027,
+        "recall": 0.8079989954165882
+      },
+      "top_features": {
+        "y_fe": 0.0577,
+        "fe_h": 0.0563,
+        "si_fe": 0.0483,
+        "k_fe": 0.0482,
+        "cu_fe": 0.0455
+      }
+    }
+  }
+}
