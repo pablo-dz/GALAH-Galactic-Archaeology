@@ -44,9 +44,14 @@ Variables más importantes para clasificar cada componente:
   <img src="figures/report/confusion_matrices.png" width="48%" alt="Matrices de confusión">
   <img src="figures/report/mg_fe_true_vs_pred.png" width="48%" alt="[Mg/Fe] predicho vs observado">
 </p>
+
 <p align="center">
   <img src="figures/report/age_true_vs_pred.png" width="48%" alt="Edad predicha vs observada">
   <img src="figures/report/abundance_vs_age.png" width="48%" alt="Abundancias en función de la edad">
+</p>
+
+<p align="center">
+  <img src="figures/report/parameters_distribution.png" width="96%" alt="Distribución de parámetros">
 </p>
 
 ## Metodología
